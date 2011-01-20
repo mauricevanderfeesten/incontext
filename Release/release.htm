@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+  <title>Index</title>
+
+    <link type="text/css" href="Content/visualizer_min.css" rel="Stylesheet" />
+  <!--[if IE 6]>    
+    <script type="text/javascript" src="/Content/iepngfix_tilebg.js"></script>
+    <link type="text/css" href="Content/visualizer_min_ie6.css" rel="Stylesheet" />  
+  <![endif]-->
+
+  <script type="text/javascript" src="Scripts/visualizer_compiled_min.js"></script>
+  <script type="text/javascript">
+    var app = new VisualizerApp("visualizer_canvas", "demo-1-pub2",
+              {
+                dataUrl: "Scripts/mock/mockdata.js",
+                schemaUrl: "Scripts/mock/mockschema.js",
+                idProperty: "http://purl.utwente.nl/ns/escape-system.owl#id",
+                titleProperty: "http://purl.org/dc/elements/1.1/title",
+                annotationTypeId: "http://purl.utwente.nl/ns/escape-annotations.owl#RelationAnnotation",
+                objectAnnotationTypeId: "http://purl.utwente.nl/ns/escape-annotations.owl#object",
+                subjectAnnotationTypeId: "http://purl.utwente.nl/ns/escape-annotations.owl#subject",
+								descriptionAnnotationTypeId: "http://purl.org/dc/terms/description",
+                imageTypeId: "http://xmlns.com/foaf/0.1/img",
+                useHistoryManager: true,
+                baseClassTypes: {
+                  "http://purl.utwente.nl/ns/escape-pubtypes.owl#Publication": "publication",
+                  "http://purl.org/dc/dcmitype/MovingImage": "video",
+                  "http://purl.utwente.nl/ns/escape-events.owl#Event": "event",
+                  "http://purl.utwente.nl/ns/escape-projects.owl#Topic": "topic"
+                }
+              });
+
+              //Subscribe to event that listens for object load
+              app.subscribe("*.load-object", function (event) {
+                document.getElementById('showObjectHolder').innerHTML = event.data;
+              });
+
+              app.subscribe("*.uri-click", function (event) {
+                document.getElementById('uriClickDiv').innerHTML = event.data;
+              });
+
+              app.subscribe("*.object-uri-click", function (event) {
+                document.getElementById('uriClickDiv').innerHTML = "Id: " + event.data.id + " + ExternalId: " + event.data.externalId;
+              });
+  </script>
+</head>
+<body>
+
+  <button onclick="app.loadObject('demo-1-mm')">
+    External Call Load Demo</button>
+  Current object: <span id="showObjectHolder"></span>
+  <div id="uriClickDiv">
+  </div>
+  <div id="visualizer_canvas"></div>
+  
+</body>
+</html>

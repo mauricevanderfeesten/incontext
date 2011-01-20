@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+  <title>Index</title>
+  <link type="text/css" href="Content/visualizer.css" media="screen" rel="Stylesheet" /> 
+  <link type="text/css" href="Content/visualizer-skin.css" media="screen" rel="Stylesheet" /> 
+  <!--[if IE 6]>    
+    <script type="text/javascript" src="Content/iepngfix_tilebg.js"></script>
+    <link type="text/css" href="Content/visualizer-ie6.css" rel="Stylesheet" />  
+  <![endif]-->
+
+  <script type="text/javascript" src="Scripts/dependencies/jquery-1.4.1.js"></script>
+  <script type="text/javascript" src="Scripts/dependencies/jquery.address-1.3.1.min.js?tracker=track"></script>
+  <script type="text/javascript" src="Scripts/dependencies/jquery.effects.core.js"></script>
+  <script type="text/javascript" src="Scripts/visualizer.js"></script>
+  <script type="text/javascript" src="Scripts/utils/htmlpopup.js"></script>
+  <script type="text/javascript" src="Scripts/framework/core.js"></script>
+  <script type="text/javascript" src="Scripts/framework/sandbox.js"></script>
+  <script type="text/javascript" src="Scripts/modules/syncdataconnector.js"></script>
+  <script type="text/javascript" src="Scripts/modules/schemaconnector.js"></script>
+  <script type="text/javascript" src="Scripts/modules/dataservice.js"></script>
+  <script type="text/javascript" src="Scripts/modules/schemaservice.js"></script>
+  <script type="text/javascript" src="Scripts/modules/htmldrawservice.js"></script>
+  <script type="text/javascript" src="Scripts/modules/historymanager.js"></script>
+  <script type="text/javascript" src="Scripts/modules/cloudservice.js"></script>
+  <script type="text/javascript" src="Scripts/modules/navigationservice.js"></script>
+  <script type="text/javascript" src="Scripts/modules/animationservice.js"></script>
+  <script type="text/javascript" src="Scripts/domain/node.js"></script>
+  <script type="text/javascript">
+    var app = new VisualizerApp("visualizer_canvas", "demo-1-pub2",
+              {
+                debug: true,
+                dataUrl: "Scripts/mock/mockdata.js",
+                schemaUrl: "Scripts/mock/mockschema.js",
+                idProperty: "http://purl.utwente.nl/ns/escape-system.owl#id",
+                titleProperty: "http://purl.org/dc/elements/1.1/title",
+                annotationTypeId: "http://purl.utwente.nl/ns/escape-annotations.owl#RelationAnnotation",
+                objectAnnotationTypeId: "http://purl.utwente.nl/ns/escape-annotations.owl#object",
+                subjectAnnotationTypeId: "http://purl.utwente.nl/ns/escape-annotations.owl#subject",
+								descriptionAnnotationTypeId: "http://purl.org/dc/terms/description",
+                imageTypeId: "http://xmlns.com/foaf/0.1/img",
+                useHistoryManager: true,
+                baseClassTypes: {
+                  "http://purl.utwente.nl/ns/escape-pubtypes.owl#Publication": "publication",
+                  "http://purl.org/dc/dcmitype/MovingImage": "video",
+                  "http://purl.utwente.nl/ns/escape-events.owl#Event": "event",
+                  "http://purl.utwente.nl/ns/escape-projects.owl#Topic": "topic"
+                }
+              });
+
+    //Subscribe to event that listens for object load
+    app.subscribe("*.load-object", function (event) {
+      document.getElementById('showObjectHolder').innerHTML = event.data;
+    });
+  </script>
+</head>
+<body>
+
+ <button onclick="app.loadObject('demo-1-mm')">External Call Load Demo</button> Current object: <span id="showObjectHolder"></span>
+ <hr />
+  <div id="visualizer_canvas"></div>
+  
+</body>
+</html>
